@@ -55,13 +55,14 @@ streamlit run streamlit_app.py
 ```
 ### **3. File Upload Format**
 Ensure your uploaded CSV file adheres to the following structure: csv
+
 ```bash
 dy,experiments,view_user_cnt,click_user_cnt,order_user_cnt
 2023-01-01,control_group,1000,200,50
 2023-01-01,treatment,1100,250,60
 ```
 
-###**Requirements**
+### **Requirements**
 - Python 3.7 or above
 - Libraries:
   - streamlit
@@ -71,7 +72,8 @@ dy,experiments,view_user_cnt,click_user_cnt,order_user_cnt
   - plotly
   - openpyxl
 
-###**Project Structure**
+### **Project Structure**
+```plaintext
 project/
 ├── streamlit_app.py        # Main Streamlit application
 ├── calculations.py         # Statistical calculations for A/B tests
@@ -82,13 +84,14 @@ project/
 │   └── default_ab_data.csv # Default A/B test data
 ├── requirements.txt        # Python dependencies
 └── README.md               # Project documentation
+```
 
-###**Future Enhancements**
+### **Future Enhancements**
 Add support for Bayesian A/B testing.
 Include confidence intervals in visualizations.
 Allow users to export graphs as images.
 
-###**Contact**
+### **Contact**
 For questions or support, please contact:
   - 👩🏻‍💻 Azize Sultan Palalı
   - 📧 azizepalali@gmail.com
