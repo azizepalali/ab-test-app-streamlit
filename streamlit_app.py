@@ -147,12 +147,12 @@ else:
             for bucket, sub_df in df.groupby('experiments'):
                 fig.add_trace(go.Scatter(
                     x=sub_df["dy"],
-                    y=sub_df[col],
+                    y=sub_df[col.lower().replace(" ", "_")],
                     mode='lines',
-                    name=f"{col}_{bucket}"
+                    name=f"{col} - {bucket}"
                 ))
 
-            fig.update_layout(title=f"{col} over Time", xaxis_title="Date", yaxis_title=col)
+            fig.update_layout(title=f"{col} Over Time", xaxis_title="Date", yaxis_title=col)
             st.plotly_chart(fig, use_container_width=True)
 
 
