@@ -22,7 +22,6 @@ st.sidebar.image("assets/ab_test_app.png", width=200) # or use_container_width=T
 st.sidebar.markdown(
     """
     <div style="text-align: center;">
-        <img src="assets/ab_test_app.png" width="150">
     </div>
     """,
     unsafe_allow_html=True,
@@ -33,7 +32,8 @@ st.sidebar.title("A/B Testing App")
 
 # Add helpful information or links
 st.sidebar.markdown("""
-Welcome to the **A/B Testing App**! 
+Welcome to the **A/B Testing App**!
+
 Use this tool to:
 - Calculate the required sample size for an A/B test.
 - Analyze daily or overall A/B test results.
