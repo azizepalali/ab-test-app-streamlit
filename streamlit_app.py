@@ -18,7 +18,7 @@ st.set_page_config(
     layout="wide"
 )
 
-st.sidebar.image("assets/ab_test_app.png", width=300) # or use_container_width=True
+st.sidebar.image("assets/ab_test_app.png", width=150, height = 150) # or use_container_width=True
 
 # Add a title to the sidebar
 st.sidebar.title("A/B Testing App")
