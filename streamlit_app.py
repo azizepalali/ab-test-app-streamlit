@@ -142,19 +142,19 @@ else:
         kpi4.metric(label = "Split Issue 📣",value = value)
 
         cols = ["view_user_cnt", "ctr", "cr"]
-        fig = make_subplots(rows=1, cols=len(cols), subplot_titles=cols)
-
-        for index, col in enumerate(cols):
+        for col in cols:
+            fig = go.Figure()
             for bucket, sub_df in df.groupby('experiments'):
-                trace = go.Scatter(x=sub_df["dy"],
-                                   y=sub_df[col],
-                                   name=col + "_" + bucket,
-                                   mode='lines')
+                fig.add_trace(go.Scatter(
+                    x=sub_df["dy"],
+                    y=sub_df[col],
+                    mode='lines',
+                    name=f"{col}_{bucket}"
+                ))
 
-                fig.add_trace(trace, row=1, col=index + 1)
+            fig.update_layout(title=f"{col} over Time", xaxis_title="Date", yaxis_title=col)
+            st.plotly_chart(fig, use_container_width=True)
 
-        fig.update_layout(title_text="The expected distributions of variation A and B")
-        st.plotly_chart(fig, use_container_width=True)
 
         st.markdown("### Daily Detail of A and B")
         st.table(df)
