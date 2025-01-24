@@ -141,21 +141,22 @@ else:
             
         kpi4.metric(label = "Split Issue 📣",value = value)
 
-        cols = ["view_user_count", "ctr", "cr"]
+        cols = ["view_user_cnt", "ctr", "cr"]  # Use actual column names
         for col in cols:
             fig = go.Figure()
             for bucket, sub_df in df.groupby('experiments'):
                 fig.add_trace(go.Scatter(
                     x=sub_df["dy"],
-                    y=sub_df[col.lower().replace(" ", "_")],
+                    y=sub_df[col],  # Use column name directly
                     mode='lines',
                     name=f"{col} - {bucket}"
                 ))
-
-            fig.update_layout(title=f"{col} Over Time", xaxis_title="Date", yaxis_title=col)
+    
+            fig.update_layout(title=f"{col.replace('_', ' ').title()} Over Time", 
+                              xaxis_title="Date", 
+                              yaxis_title=col.replace('_', ' ').title())
             st.plotly_chart(fig, use_container_width=True)
-
-
+    
         st.markdown("### Daily Detail of A and B")
         st.table(df)
 
