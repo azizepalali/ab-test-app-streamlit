@@ -1,6 +1,6 @@
 import pandas as pd
 
-def load_default_data(filepath="data/ab_data.csv"):
+def load_default_data(filepath="data/ab_test_data.csv"):
     """
     Loads the default A/B test dataset.
     
