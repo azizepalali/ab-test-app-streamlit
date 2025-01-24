@@ -4,42 +4,39 @@ import pandas as pd
 import streamlit as st
 import math
 
-from statistical_calculations import calculate_sample_size, ab_test_calculations, ab_test_calculations_overall
-from utils import default_sql
+from calculations import calculate_sample_size, ab_test_calculations, ab_test_calculations_overall
+from utilities.data_loader import load_default_data
+from utilities.download_utils import get_excel_download_link
 
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 
 st.set_page_config(
-                    page_title="A/B Testing App",
-                    page_icon="📊",
-                    initial_sidebar_state="expanded",
-                    layout="wide"
-                    )
+    page_title="A/B Testing App",
+    page_icon="📊",
+    initial_sidebar_state="expanded",
+    layout="wide"
+)
+
 #st.sidebar.image("", use_column_width=True)
 app_mode = st.sidebar.selectbox('Select Page', ['Sample Size Calculator', 'A/B Test Result'])
-
-# Load default data for A/B test from a separate file
-def load_default_data():
-    return pd.read_csv("ab_test_data.csv")
 
 default_df = load_default_data()
 
 if app_mode == "Sample Size Calculator":
     st.title("Sample Size Calculator :rocket:")
-    
+
     st.write("---")
     st.write("""
             Question: How many subjects are needed for an A/B test?
             - Check out this [link](https://signalvnoise.com/posts/3004-ab-testing-tech-note-determining-sample-size) for more detail
-""")
+    """)
     st.write("---")
-    
-    # slider
+
     beta = st.slider(label='Statistical power 1−β:',
                      min_value=60,
                      max_value=95,
-                     step=5, 
+                     step=5,
                      value=80,
                      help="Statistical power is the probability of observing a statistically significant result at level alpha (α) if a true effect of a certain magnitude is present.") / 100
     alpha = st.slider(label='Significance level α:',
@@ -49,15 +46,14 @@ if app_mode == "Sample Size Calculator":
                       value=5,
                       help='Percent of the time a difference will be detected, assuming one does NOT exist') / 100
 
-    # text inputs
-    baseline_conversion_rate = float(st.text_input(label = 'Baseline Kpi: %',
-                                     value="18.55",
-                                     help="Kpi that you want to improve with A/B testing.")) / 100
-    minimum_detectable_effect = float(st.text_input(label = 'Minimum Detectable Effect: %',
-                                      value="0.1",
-                                      help='The Minimum Detectable Effect is the effect size which, if it truly exists, can be detected with a given probability with a statistical test of a certain significance level. ')) / 100
-    
-    traffic_ratio = float(st.text_input(label = 'Traffic Ratio: %',
+    baseline_conversion_rate = float(st.text_input(label='Baseline Kpi: %',
+                                                   value="18.55",
+                                                   help="Kpi that you want to improve with A/B testing.")) / 100
+    minimum_detectable_effect = float(st.text_input(label='Minimum Detectable Effect: %',
+                                                    value="0.1",
+                                                    help='The Minimum Detectable Effect is the effect size which, if it truly exists, can be detected with a given probability with a statistical test of a certain significance level.')) / 100
+
+    traffic_ratio = float(st.text_input(label='Traffic Ratio: %',
                                         value="10",
                                         help='Percent of traffic that in A/B test')) / 100
 
@@ -66,33 +62,24 @@ if app_mode == "Sample Size Calculator":
                                         p=baseline_conversion_rate,
                                         delta=minimum_detectable_effect)
 
-    #st.write('Sample size:', int(sample_size))
     st.header(f'Sample size: {int(sample_size)}')
 
-    
-    
-    # needed days
     average_daily_view = float(st.text_input('Average Daily View:', value="520501"))
     needed_sample_view = sample_size
     needed_total_view = needed_sample_view * 2
     needed_days = needed_total_view / (average_daily_view * traffic_ratio)
-    
-    
-    # lift
+
     lift = minimum_detectable_effect / baseline_conversion_rate
-    
-    
-    # print table
+
     st.table(pd.DataFrame({
-                            "Needed Sample View": needed_sample_view,
-                            "Needed Total View": needed_total_view,
-                            "Needed Days": needed_days,
-                            "Relative Lift %": round(lift * 100, 2)
-                          }, index = [0]))
-    
-    
+        "Needed Sample View": needed_sample_view,
+        "Needed Total View": needed_total_view,
+        "Needed Days": needed_days,
+        "Relative Lift %": round(lift * 100, 2)
+    }, index=[0]))
+
 else:
-    st.title("A/B Test Result :rocket:") 
+    st.title("A/B Test Result :rocket:")
     st.write("---")
     uploaded_file = st.file_uploader("Upload your A/B test CSV file", type="csv")
 
@@ -106,7 +93,6 @@ else:
         df = default_df
 
     clicked_calculate_daily, clicked_calculate_overall = st.columns(2)
-        
     clicked_calculate_daily = clicked_calculate_daily.button('Calculate A/B Test Daily 🗓')
     clicked_calculate_overall = clicked_calculate_overall.button('Calculate A/B Test Overall 🔍')
 
@@ -123,8 +109,7 @@ else:
         kpi2.metric(label="CTR Significant Count 📈", value=treatment_ctr_yes)
         kpi3.metric(label="CR Significant Count 🛫", value=treatment_cr_yes)
 
-        ## plot
-        cols = ["view_user_cnt", "ctr", "cr"] 
+        cols = ["view_user_cnt", "ctr", "cr"]
         fig = make_subplots(rows=1, cols=len(cols), subplot_titles=cols)
 
         for index, col in enumerate(cols):
@@ -139,33 +124,16 @@ else:
         fig.update_layout(title_text="The expected distributions of variation A and B")
         st.plotly_chart(fig, use_container_width=True)
 
-        # plot table
         st.markdown("### Daily Detail of A and B")
         st.table(df)
 
-        # download as excel
-        towrite = io.BytesIO()
-        downloaded_file = df.to_excel(towrite,
-                                      encoding='utf-8',
-                                      index=False,
-                                      header=True) # write to BytesIO buffer
-        towrite.seek(0)  # reset pointer
-        b64 = base64.b64encode(towrite.read()).decode() 
-        linko = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="A_B_Test_Results.xlsx">Download A/B Test Results</a>'
-        st.markdown(linko, unsafe_allow_html=True)
-    
+        download_link = get_excel_download_link(df)
+        st.markdown(download_link, unsafe_allow_html=True)
+
     elif clicked_calculate_overall:
         df = ab_test_calculations_overall(df)
         st.markdown("### Overall Key Metrics")
         st.table(df)
 
-        # download as excel
-        towrite = io.BytesIO()
-        downloaded_file = df.to_excel(towrite,
-                                      encoding='utf-8',
-                                      index=False,
-                                      header=True) # write to BytesIO buffer
-        towrite.seek(0)  # reset pointer
-        b64 = base64.b64encode(towrite.read()).decode() 
-        linko = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="A_B_Test_Results.xlsx">Download A/B Test Results</a>'
-        st.markdown(linko, unsafe_allow_html=True)
+        download_link = get_excel_download_link(df)
+        st.markdown(download_link, unsafe_allow_html=True)
