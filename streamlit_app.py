@@ -108,6 +108,15 @@ else:
         kpi1.metric(label="Run Day 🏃🏻", value=distinct_dy)
         kpi2.metric(label="CTR Significant Count 📈", value=treatment_ctr_yes)
         kpi3.metric(label="CR Significant Count 🛫", value=treatment_cr_yes)
+        srm_pvalue = srm_p * math.sqrt(srm_p*(1-srm_p)/srm_n) 
+
+
+        if srm_pvalue < 0.001:
+            value = "No"
+        else:
+            value = "Yes"
+            
+        kpi4.metric(label = "Split Issue 📣",value = value)
 
         cols = ["view_user_cnt", "ctr", "cr"]
         fig = make_subplots(rows=1, cols=len(cols), subplot_titles=cols)
