@@ -38,6 +38,7 @@ Use this tool to:
 - Calculate the required sample size for an A/B test.
 - Analyze daily or overall A/B test results.
 """)
+app_mode = st.sidebar.selectbox('**Select Page**', ['Sample Size Calculator', 'A/B Test Result'])
 
 # Add links to relevant resources
 st.sidebar.markdown("""
@@ -46,7 +47,7 @@ st.sidebar.markdown("""
 - [Streamlit Documentation](https://docs.streamlit.io)
 """)
 
-app_mode = st.sidebar.selectbox('Select Page', ['Sample Size Calculator', 'A/B Test Result'])
+
 
 default_df = load_default_data()
 
