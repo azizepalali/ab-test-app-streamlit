@@ -147,7 +147,7 @@ else:
     elif clicked_calculate_overall:
         df = ab_test_calculations_overall(df)
         st.markdown("### Overall Key Metrics")
-        st.table(df)
+        st.table(df_overall)
 
-        download_link = get_excel_download_link(df)
+        download_link = get_excel_download_link(df_overall)
         st.markdown(download_link, unsafe_allow_html=True)
