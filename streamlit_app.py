@@ -18,7 +18,25 @@ st.set_page_config(
     layout="wide"
 )
 
-#st.sidebar.image("", use_column_width=True)
+st.sidebar.image("ab_test_app.png", use_column_width=True)
+
+# Add a title to the sidebar
+st.sidebar.title("A/B Testing App")
+
+# Add helpful information or links
+st.sidebar.markdown("""
+Welcome to the **A/B Testing App**! Use this tool to:
+- Calculate the required sample size for an A/B test.
+- Analyze daily or overall A/B test results.
+""")
+
+# Add links to relevant resources
+st.sidebar.markdown("""
+**Quick Links:**
+- [What is A/B Testing?](https://azizesultanpalali.com/category/articles/)
+- [Streamlit Documentation](https://docs.streamlit.io)
+""")
+
 app_mode = st.sidebar.selectbox('Select Page', ['Sample Size Calculator', 'A/B Test Result'])
 
 default_df = load_default_data()
