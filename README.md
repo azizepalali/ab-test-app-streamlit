@@ -4,9 +4,8 @@
 The **A/B Testing App** is an interactive Streamlit application designed to help users conduct and analyze A/B tests. This tool provides two main functionalities:
 1. **Sample Size Calculator**: Determine the minimum sample size needed for an A/B test based on key parameters like statistical power, significance level, and baseline conversion rates.
 2. **A/B Test Results Analysis**: Upload your test results to calculate key metrics, visualize trends, and evaluate statistical significance.
-3. 
-https://ab-test-app.streamlit.app/
 ---
+https://ab-test-app.streamlit.app/
 
 ## **Features**
 
