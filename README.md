@@ -87,9 +87,9 @@ project/
 ```
 
 ### **Future Enhancements**
-Add support for Bayesian A/B testing.
-Include confidence intervals in visualizations.
-Allow users to export graphs as images.
+- Add support for Bayesian A/B testing.
+- Include confidence intervals in visualizations.
+- Allow users to export graphs as images.
 
 ### **Contact**
 For questions or support, please contact:
