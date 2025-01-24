@@ -4,7 +4,7 @@ import pandas as pd
 import streamlit as st
 import math
 
-from calculations import calculate_sample_size, ab_test_calculations, ab_test_calculations_overall
+from statistical_calculations import calculate_sample_size, ab_test_calculations, ab_test_calculations_overall
 from utils import default_sql
 
 from plotly.subplots import make_subplots
