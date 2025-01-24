@@ -17,19 +17,13 @@ st.set_page_config(
     #initial_sidebar_state="expanded",
     layout="wide"
 )
-st.sidebar.image("assets/ab_test_app.png", width=200) # or use_container_width=True
-st.sidebar.markdown(
-    """
-    <div style="text-align: center;">
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
+st.sidebar.image("assets/ab_test_app.png", use_container_width=True) # or width = 300
 # Add a title to the sidebar
 st.sidebar.title("A/B Testing App")
 # Add helpful information or links
 st.sidebar.markdown("""
 Welcome to the **A/B Testing App**!
+
 Use this tool to:
 - Calculate the required sample size.
 - Analyze daily or overall results.
