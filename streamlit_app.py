@@ -141,7 +141,7 @@ else:
             
         kpi4.metric(label = "Split Issue 📣",value = value)
 
-        cols = ["view_user_cnt", "ctr", "cr"]
+        cols = ["View User Count", "CTR", "CR"]
         for col in cols:
             fig = go.Figure()
             for bucket, sub_df in df.groupby('experiments'):
