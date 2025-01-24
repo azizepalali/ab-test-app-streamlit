@@ -38,7 +38,7 @@ Use this tool to:
 - Calculate the required sample size for an A/B test.
 - Analyze daily or overall A/B test results.
 """)
-app_mode = st.sidebar.selectbox('**Select Page**', ['Sample Size Calculator', 'A/B Test Result'])
+app_mode = st.sidebar.selectbox('**Select Page**', ['Sample Size Calculator :rocket:', 'A/B Test Result :rocket:'])
 
 # Add links to relevant resources
 st.sidebar.markdown("""
