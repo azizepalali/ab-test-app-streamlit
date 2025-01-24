@@ -14,10 +14,9 @@ import plotly.graph_objects as go
 st.set_page_config(
     page_title="A/B Testing App",
     page_icon="📊",
-    initial_sidebar_state="expanded",
+    #initial_sidebar_state="expanded",
     layout="wide"
 )
-
 st.sidebar.image("assets/ab_test_app.png", width=200) # or use_container_width=True
 st.sidebar.markdown(
     """
@@ -26,17 +25,14 @@ st.sidebar.markdown(
     """,
     unsafe_allow_html=True,
 )
-
 # Add a title to the sidebar
 st.sidebar.title("A/B Testing App")
-
 # Add helpful information or links
 st.sidebar.markdown("""
 Welcome to the **A/B Testing App**!
-
 Use this tool to:
-- Calculate the required sample size for an A/B test.
-- Analyze daily or overall A/B test results.
+- Calculate the required sample size.
+- Analyze daily or overall results.
 """)
 app_mode = st.sidebar.selectbox('**Select Page**', ['Sample Size Calculator 👩🏻‍💻', 'A/B Test Result 📚'])
 
