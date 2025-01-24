@@ -106,8 +106,8 @@ else:
         st.write("### Uploaded Data Preview")
         st.write(df.head())
     else:
-        st.write("### Default Data Preview")
-        st.write(default_df.head())
+        # st.write("### Default Data Preview")
+        # st.write(default_df.head())
         df = default_df
 
     clicked_calculate_daily, clicked_calculate_overall = st.columns(2)
