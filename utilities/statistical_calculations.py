@@ -106,7 +106,20 @@ def ab_test_calculations(df):
     return df
 
 def ab_test_calculations_overall(df):
-    df = pd.DataFrame(df.groupby("experiments", as_index=False).sum())
-    df = ab_test_calculations(df)
+    """
+    Calculate A/B test metrics overall by grouping and summing relevant columns.
+    
+    Parameters:
+        df (pd.DataFrame): A/B test data with daily metrics.
+    
+    Returns:
+        pd.DataFrame: Aggregated metrics for control and treatment groups.
+    """
+    # Exclude `dy` column from aggregation
+    df_grouped = df.drop(columns=["dy"]).groupby("experiments", as_index=False).sum()
 
-    return df
+    # Calculate overall metrics
+    df_grouped = ab_test_calculations(df_grouped)
+
+    return df_grouped
+
