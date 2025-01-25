@@ -82,7 +82,7 @@ if app_mode == "Sample Size Calculator 👩🏻‍💻":
     st.header(f'Sample size: {round(int(sample_size),2)}')
     average_daily_view = float(st.text_input('Average Daily View:', value="520501", help="Enter the average daily view count."))
     average_daily_view = round(average_daily_view, 2)
-    needed_total_view = needed_sample_view * 2
+    needed_total_view = round(sample_size * 2,)
     needed_days = needed_total_view / (average_daily_view * traffic_ratio)
 
     lift = minimum_detectable_effect / baseline_conversion_rate
