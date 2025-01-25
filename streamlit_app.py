@@ -64,26 +64,28 @@ if app_mode == "Sample Size Calculator 👩🏻‍💻":
                       value=5,
                       help='Percent of the time a difference will be detected, assuming one does NOT exist') / 100
 
-    baseline_conversion_rate = float(st.text_input(label='Baseline Kpi: %',
-                                                   value="18.55",
-                                                   help="Kpi that you want to improve with A/B testing.")) / 100
-    minimum_detectable_effect = float(st.text_input(label='Minimum Detectable Effect: %',
-                                                    value="0.1",
-                                                    help='The Minimum Detectable Effect is the effect size which, if it truly exists, can be detected with a given probability with a statistical test of a certain significance level.')) / 100
-
-    traffic_ratio = float(st.text_input(label='Traffic Ratio: %',
-                                        value="10",
-                                        help='Percent of traffic that in A/B test')) / 100
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        baseline_conversion_rate = float(st.text_input(label='Baseline Kpi: %',
+                                                       value="18.55",
+                                                       help="Kpi that you want to improve with A/B testing.")) / 100
+    with col2:
+        minimum_detectable_effect = float(st.text_input(label='Minimum Detectable Effect: %',
+                                                        value="0.1",
+                                                        help='The Minimum Detectable Effect is the effect size which, if it truly exists, can be detected with a given probability with a statistical test of a certain significance level.')) / 100
+    with col3:
+        traffic_ratio = float(st.text_input(label='Traffic Ratio: %',
+                                            value="10",
+                                            help='Percent of traffic that in A/B test')) / 100
 
     sample_size = calculate_sample_size(alpha=alpha,
                                         power_level=beta,
                                         p=baseline_conversion_rate,
                                         delta=minimum_detectable_effect)
-
+    #sigfig correction
     st.header(f'Sample size: {int(sample_size)}')
-
-    average_daily_view = float(st.text_input('Average Daily View:', value="520501"))
-    needed_sample_view = sample_size
+    average_daily_view = float(st.text_input('Average Daily View:', value="520501", help="Enter the average daily view count."))
+    average_daily_view = round(average_daily_view, 2)
     needed_total_view = needed_sample_view * 2
     needed_days = needed_total_view / (average_daily_view * traffic_ratio)
 
