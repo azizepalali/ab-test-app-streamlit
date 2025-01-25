@@ -37,20 +37,16 @@ st.sidebar.markdown("""
 - [Streamlit Documentation](https://docs.streamlit.io)
 """)
 
-
-
 default_df = load_default_data()
 
 if app_mode == "Sample Size Calculator 👩🏻‍💻":
     st.title("Sample Size Calculator :rocket:")
-
     st.write("---")
     st.write("""
             Question: How many subjects are needed for an A/B test?
             - Check out this [link](https://signalvnoise.com/posts/3004-ab-testing-tech-note-determining-sample-size) for more detail
     """)
     st.write("---")
-
     beta = st.slider(label='Statistical power 1−β:',
                      min_value=60,
                      max_value=95,
@@ -83,7 +79,7 @@ if app_mode == "Sample Size Calculator 👩🏻‍💻":
                                         p=baseline_conversion_rate,
                                         delta=minimum_detectable_effect)
     #sigfig correction
-    st.header(f'Sample size: {int(sample_size)}')
+    st.header(f'Sample size: {round(int(sample_size)}'),2)
     average_daily_view = float(st.text_input('Average Daily View:', value="520501", help="Enter the average daily view count."))
     average_daily_view = round(average_daily_view, 2)
     needed_total_view = needed_sample_view * 2
