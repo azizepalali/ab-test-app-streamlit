@@ -41,7 +41,7 @@ st.sidebar.markdown("""
 
 default_df = load_default_data()
 
-if app_mode == "Sample Size Calculator":
+if app_mode == "Sample Size Calculator 👩🏻‍💻":
     st.title("Sample Size Calculator :rocket:")
 
     st.write("---")
