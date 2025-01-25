@@ -79,7 +79,7 @@ if app_mode == "Sample Size Calculator 👩🏻‍💻":
                                         p=baseline_conversion_rate,
                                         delta=minimum_detectable_effect)
     #sigfig correction
-    st.header(f'Sample size: {round(int(sample_size),2)}'
+    st.header(f'Sample size: {round(int(sample_size),2)}')
     average_daily_view = float(st.text_input('Average Daily View:', value="520501", help="Enter the average daily view count."))
     average_daily_view = round(average_daily_view, 2)
     needed_total_view = needed_sample_view * 2
